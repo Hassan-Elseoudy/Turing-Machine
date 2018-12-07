@@ -1,0 +1,15 @@
+---NumberOfStates---
+2
+------Alphabet------
+a,b,#
+-----Transition-----
+0,a,1,a,r
+0,b,0,b,r
+0,#,0,#,y
+1,a,0,a,r
+1,b,1,b,r
+1,#,1,#,n
+--------Tape--------
+abaaba
+--------Head--------
+0
