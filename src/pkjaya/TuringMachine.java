@@ -27,7 +27,7 @@ public class TuringMachine {
 		System.out.println("Head Position is: " + (headPosition));
 		tape = tape.insert(headPosition + 1, ')');
 		tape = tape.insert(headPosition, '(');
-		System.out.println("Tape is <"+tape);
+		System.out.println("Tape is <" + tape);
 	}
 
 	public static void readInputs() throws Exception {
@@ -72,27 +72,30 @@ public class TuringMachine {
 				Yes_No.add(i);
 		}
 		int current_transition = 0;
-		
-		
-			
-		while (!Yes_No.contains(current_transition)) {
-			for (int i = (currentState * (alphabet.length()+1)); i < (currentState * (alphabet.length()+1)
-					+ (alphabet.length()+1)); i++) {
-				if (tape.charAt(headPosition) == transitions.get(i).charAt(2)) {
-					tape.setCharAt(headPosition, transitions.get(i).charAt(6));
-					currentState = Integer.parseInt(transitions.get(i).substring(4,5));
-					if (transitions.get(i).charAt(8) == 'r')
-						headPosition++;
-					else if (transitions.get(i).charAt(8) == 'l')
-						headPosition--;
-					currentStateChanged = true;
-				}
-				current_transition = i;
-				if(currentStateChanged) {
-					currentStateChanged = false;
-					break;
+
+		try {
+
+			while (!Yes_No.contains(current_transition)) {
+				for (int i = (currentState * (alphabet.length() + 1)); i < (currentState * (alphabet.length() + 1)
+						+ (alphabet.length() + 1)); i++) {
+					if (tape.charAt(headPosition) == transitions.get(i).charAt(2)) {
+						tape.setCharAt(headPosition, transitions.get(i).charAt(6));
+						currentState = Integer.parseInt(transitions.get(i).substring(4, 5));
+						if (transitions.get(i).charAt(8) == 'r')
+							headPosition++;
+						else if (transitions.get(i).charAt(8) == 'l')
+							headPosition--;
+						currentStateChanged = true;
+					}
+					current_transition = i;
+					if (currentStateChanged) {
+						currentStateChanged = false;
+						break;
+					}
 				}
 			}
+		} catch (Exception ex) {
+			System.out.println("Exception happened! Is Head position < 0 ?");
 		}
 		if (transitions.get(current_transition).endsWith("n")) {
 			tape.setCharAt(headPosition, transitions.get(current_transition).charAt(6));
@@ -104,4 +107,5 @@ public class TuringMachine {
 			return true;
 		}
 	}
+
 }
