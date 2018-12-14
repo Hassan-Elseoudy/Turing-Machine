@@ -25,6 +25,9 @@ public class TuringMachine {
 		else
 			System.out.println("Not Valid");
 		System.out.println("Head Position is: " + (headPosition));
+		tape = tape.insert(headPosition + 1, ')');
+		tape = tape.insert(headPosition, '(');
+		System.out.println("Tape is <"+tape);
 	}
 
 	public static void readInputs() throws Exception {
@@ -69,6 +72,9 @@ public class TuringMachine {
 				Yes_No.add(i);
 		}
 		int current_transition = 0;
+		
+		
+			
 		while (!Yes_No.contains(current_transition)) {
 			for (int i = (currentState * (alphabet.length()+1)); i < (currentState * (alphabet.length()+1)
 					+ (alphabet.length()+1)); i++) {
