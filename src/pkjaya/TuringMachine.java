@@ -1,9 +1,13 @@
 package pkjaya;
 
+/**
+*
+* @author smsm
+*/
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class TuringMachine {
@@ -16,11 +20,11 @@ public class TuringMachine {
 
 	public static void main(String[] args) throws Exception {
 		readInputs();
-		System.out.println(tape);
 		if (processing())
 			System.out.println("Valid");
 		else
 			System.out.println("Not Valid");
+		System.out.println("Head Position is: " + (headPosition));
 	}
 
 	public static void readInputs() throws Exception {
@@ -52,7 +56,7 @@ public class TuringMachine {
 			} else
 				counter++;
 		}
-		alphabet = alphabet.replaceAll(",", "");
+		alphabet = alphabet.replaceAll("<|,|#", "");
 	}
 
 	public static boolean processing() throws Exception {
@@ -66,14 +70,14 @@ public class TuringMachine {
 		}
 		int current_transition = 0;
 		while (!Yes_No.contains(current_transition)) {
-			for (int i = (currentState * alphabet.length()); i < (currentState * alphabet.length()
-					+ alphabet.length()); i++) {
+			for (int i = (currentState * (alphabet.length()+1)); i < (currentState * (alphabet.length()+1)
+					+ (alphabet.length()+1)); i++) {
 				if (tape.charAt(headPosition) == transitions.get(i).charAt(2)) {
 					tape.setCharAt(headPosition, transitions.get(i).charAt(6));
 					currentState = Integer.parseInt(transitions.get(i).substring(4,5));
 					if (transitions.get(i).charAt(8) == 'r')
 						headPosition++;
-					else
+					else if (transitions.get(i).charAt(8) == 'l')
 						headPosition--;
 					currentStateChanged = true;
 				}
